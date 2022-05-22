@@ -1,5 +1,10 @@
 <template>
-  <component :is="tag" :="attrs">
+  <component
+    :is="tag"
+    :="attrs"
+    @[isButton&&`click`]="buttonClicked"
+    ref="componentElement"
+  >
     <component
       v-for="(c, index) in children"
       :key="'standard_element_component_' + index"
@@ -32,11 +37,46 @@ const { node } = toRefs(props)
 const { children } = useChildren(node)
 const { dataObject } = useMethods()
 const attrs = ref({})
+const isButton = ref(false)
+const componentElement = ref(null)
 
-const transferAttributes= new Set(['div', 'button'])
+const transferAttributes = new Set(['div', 'button'])
 const tag = nodeNameTagNameMap.get(node.value.nodeName)
 
 if (transferAttributes.has(node.value.nodeName)) {
-  attrs.value = dataObject(node.value).attrs
+  const tmpDataObject = dataObject(
+    node.value,
+    node.value.getAttribute('classes'),
+  )
+  attrs.value = {
+    ...tmpDataObject.attrs,
+    class: tmpDataObject.class.join(' '),
+  }
+}
+if (node.value.nodeName === 'button') {
+  isButton.value = true
+}
+
+function buttonClicked() {
+  if (componentElement.value.getAttribute('aria-selected') === 'false') {
+    const parentElement = componentElement.value.parentElement
+    let panels = []
+    for (const child of parentElement.children) {
+      const el = document.getElementById(child.id)
+      el.setAttribute(
+        'aria-selected',
+        el.getAttribute('aria-selected') === 'true' ? 'false' : 'true',
+      )
+      panels.push({ id: child.getAttribute('aria-controls') })
+    }
+    for (const panel of panels) {
+      const el = document.getElementById(panel.id)
+      if (el.hasAttribute('hidden')) {
+        el.removeAttribute('hidden')
+      } else {
+        el.setAttribute('hidden', '')
+      }
+    }
+  }
 }
 </script>

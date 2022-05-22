@@ -10,6 +10,19 @@ const isEmpty = (d) => {
 }
 
 export const useMethods = () => {
+  const toggleActiveClass = (classList) => {
+    let index = classList.indexOf('active')
+
+    if (index !== -1) {
+      classList[index] = 'inactive'
+    } else {
+      index = classList.indexOf('inactive')
+      if (index !== -1) {
+        classList[index] = 'active'
+      }
+    }
+  }
+
   const separateIds = (element, targetId) => {
     const ids = element.getAttribute('ids')
     if (ids !== null) {
@@ -126,5 +139,6 @@ export const useMethods = () => {
     isInternalReference,
     isReferenceToCurrentPage,
     separateIds,
+    toggleActiveClass,
   }
 }

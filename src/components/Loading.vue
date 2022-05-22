@@ -1,6 +1,6 @@
 <template>
   <div class="loading-container">
-    <span>Loading page </span>
+    <span>Loading page component</span>
     <span class="lds-roller">
       <div></div>
       <div></div>

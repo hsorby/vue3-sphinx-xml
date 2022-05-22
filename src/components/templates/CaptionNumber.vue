@@ -2,7 +2,7 @@
   <span :="attrs">
     <component
       v-for="(c, index) in children"
-      :key="'figure_caption_' + index"
+      :key="'caption_number_' + index"
       :is="c.component"
       :node="c.node"
       :componentName="c.name"
@@ -38,13 +38,7 @@ const { classes } = useClasses(node)
 const { children } = useChildren(node)
 
 const combinedClasses = computed(() => {
-  let c = ['figure-caption', ...classes.value]
-  for (const attr of node.value.attributes) {
-    if (attr.name === 'align') {
-      c.push('align-' + attr.value)
-    }
-  }
-  return c
+  return ['caption-number', ...classes.value]
 })
 
 const result = dataObject(node.value, combinedClasses.value)
@@ -52,4 +46,5 @@ attrs.value = {
     ...result.attrs,
     class: result.class.join(' '),
   }
+
 </script>
