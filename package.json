@@ -17,7 +17,7 @@
     "documentation",
     "xml"
   ],
-  "main": "dist/vue3-sphinx-xml.es.js",
+  "module": "dist/vue3-sphinx-xml.es.js",
   "files": [
     "dist"
   ],
