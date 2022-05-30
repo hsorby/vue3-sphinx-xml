@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref, toRefs } from 'vue'
+import { onMounted, ref, toRefs } from 'vue'
 
 import { useChildren, useClasses } from '../../composables/computed'
 import { useMethods } from '../../composables/methods'

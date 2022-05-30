@@ -4,7 +4,7 @@ import 'katex/dist/katex.min.css'
 import SphinxPage from './components/SphinxPage.vue'
 import * as SphinxStore from './store/modules/sphinx'
 
-function install(app, options = {}) {
+function installVue3SphinxXml(app, options = {}) {
   if (!options.store) {
     throw 'Please provide a store!!'
   }
@@ -13,5 +13,5 @@ function install(app, options = {}) {
   app.use(Vue3Katex, options.katex)
 }
 
-export default install
-export { SphinxPage }
+export { installVue3SphinxXml, SphinxPage }
+

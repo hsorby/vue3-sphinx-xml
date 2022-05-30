@@ -1,4 +1,3 @@
-import { createConditionalExpression } from '@vue/compiler-core'
 import { determineRouteUrl } from '../js/utilities'
 
 const isEmpty = (d) => {
