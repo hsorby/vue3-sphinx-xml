@@ -1,10 +1,10 @@
 <template>
-  <comment :content="text" />
+  <comment-node :content="text" />
 </template>
 
 <script setup>
 import { toRefs, ref } from 'vue'
-import Comment from '../Comment.vue'
+import CommentNode from '../CommentNode.vue'
 
 const props = defineProps({
   node: {
