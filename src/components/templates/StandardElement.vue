@@ -43,16 +43,14 @@ const componentElement = ref(null)
 const transferAttributes = new Set(['div', 'button'])
 const tag = nodeNameTagNameMap.get(node.value.nodeName)
 
-if (transferAttributes.has(node.value.nodeName)) {
-  const tmpDataObject = dataObject(
-    node.value,
-    node.value.getAttribute('classes'),
-  )
-  attrs.value = {
-    ...tmpDataObject.attrs,
-    class: tmpDataObject.class.join(' '),
-  }
+// if (transferAttributes.has(node.value.nodeName)) {
+const tmpDataObject = dataObject(node.value, node.value.getAttribute('classes'))
+const classList = tmpDataObject.class ? tmpDataObject.class.join(' ') : undefined
+attrs.value = {
+  ...tmpDataObject.attrs,
+  class: classList,
 }
+// }
 if (node.value.nodeName === 'button') {
   isButton.value = true
 }

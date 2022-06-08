@@ -27,7 +27,7 @@ const props = defineProps({
   },
 })
 
-const { element, id } = toRefs(props)
+const { element } = toRefs(props)
 const { children } = useChildren(element)
 
 </script>

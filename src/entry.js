@@ -14,4 +14,3 @@ function installVue3SphinxXml(app, options = {}) {
 }
 
 export { installVue3SphinxXml, SphinxPage }
-

@@ -33,6 +33,7 @@ export const nodeNameTemplateNameMap = new Map([
   ['caption_number', 'CaptionNumber'],
   ['download_reference', 'DownloadReference'],
   ['footnote_reference', 'FootnoteReference'],
+  ['index', 'Skip'],
   ['line_block', 'LineBlock'],
   ['literal_block', 'LiteralBlock'],
   ['math_block', 'MathBlock'],
