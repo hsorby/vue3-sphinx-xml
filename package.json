@@ -20,7 +20,7 @@
   "module": "dist/vue3-sphinx-xml.es.js",
   "files": [
     "dist",
-    "README.md",
+    "README.md"
   ],
   "scripts": {
     "build-package": "vite build"
