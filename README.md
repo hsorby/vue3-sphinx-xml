@@ -1,16 +1,16 @@
-![logo](https://github.com/hsorby/vue-sphinx-xml/raw/main/docs/assets/vue-sphinx-xml-logo.svg)
+![logo](https://github.com/hsorby/vue3-sphinx-xml/raw/main/docs/assets/vue-sphinx-xml-logo.svg)
 
 # vue-sphinx-xml
 
 [![npm](https://img.shields.io/npm/v/vue-sphinx-xml.svg) ![npm](https://img.shields.io/npm/dm/vue-sphinx-xml.svg)](https://www.npmjs.com/package/vue-sphinx-xml)
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
-Vue component for displaying Sphinx documentation XML content.
+Vue component for displaying documentation from XML that has been generaterd by [Sphinx](https://www.sphinx-doc.org/).
 
 ## Project setup
 
 ```
-npm install --save vue-sphinx-xml
+npm install --save vue3-sphinx-xml
 ```
 
 ### Module import
