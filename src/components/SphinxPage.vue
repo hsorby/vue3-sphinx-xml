@@ -77,41 +77,45 @@ function followScrollTarget(elem) {
 watch(
   route,
   (to) => {
-    if (previousRoute.path === undefined || to.path !== previousRoute.path) {
-      fetchPageData(to)
-      if (to.hash) {
-        setTimeout(() => {
-          let hash = to.hash
-          if (hash.startsWith('#')) {
-            hash = hash.slice(1)
-          }
-          const elem = document.getElementById(hash)
-          if (elem) {
-            followScrollTarget(elem)
-          }
-        }, scrollDelay.value)
-      }
-    } else if (to.path === previousRoute.path && to.hash) {
-      let hash = to.hash
-      if (hash.startsWith('#')) {
-        hash = hash.slice(1)
-      }
-      const elem = document.getElementById(hash)
-      if (elem) {
-        window.scrollTo({
-          top: elem.offsetTop,
-          behavior: 'smooth',
-        })
+    const routeURL = determineRouteUrl(to)
+    if (routeURL !== undefined) {
+      if (previousRoute.path === undefined || to.path !== previousRoute.path) {
+        const pageName = constructPageNameFromRoute(to)
+        fetchPageData(to.path, routeURL, pageName)
+        if (to.hash) {
+          setTimeout(() => {
+            let hash = to.hash
+            if (hash.startsWith('#')) {
+              hash = hash.slice(1)
+            }
+            const elem = document.getElementById(hash)
+            if (elem) {
+              followScrollTarget(elem)
+            }
+          }, scrollDelay.value)
+        }
+      } else if (to.path === previousRoute.path && to.hash) {
+        let hash = to.hash
+        if (hash.startsWith('#')) {
+          hash = hash.slice(1)
+        }
+        const elem = document.getElementById(hash)
+        if (elem) {
+          window.scrollTo({
+            top: elem.offsetTop,
+            behavior: 'smooth',
+          })
+        }
       }
     }
+
     previousRoute.path = to.path
     previousRoute.hash = to.hash
   },
   { flush: 'pre', immediate: true, deep: true },
 )
 
-function fetchPageData(routeTo) {
-  let pageName = constructPageNameFromRoute(routeTo)
+function fetchPageData(currentPath, routeURL, pageName) {
   if (!pageName) {
     pageName = indexFileName.value
   }
@@ -123,7 +127,6 @@ function fetchPageData(routeTo) {
     downloadBaseURL.value === ''
       ? `${baseURL.value}/_downloads`
       : downloadBaseURL.value
-  const routeURL = determineRouteUrl(routeTo)
 
   store
     .dispatch('sphinx/fetchPage', {
@@ -134,18 +137,16 @@ function fetchPageData(routeTo) {
       page_images: resolvedImagesBaseURL,
     })
     .then((response) => {
-      if (response) {
-        element.value = response
-        id.value = 'page_' + pageName.replace('/', '_')
-      } else {
-        router.push({
-          name: pageNotFoundName.value,
-          params: {
-            type: 'page',
-            message: `Could not find Sphinx page '${pageName}.xml'.`,
-          },
-        })
-      }
+      element.value = response
+      id.value = 'page_' + pageName.replace('/', '_')
+    })
+    .catch(() => {
+      router.push({
+        name: pageNotFoundName.value,
+        query: {
+          path: currentPath,
+        },
+      })
     })
 }
 </script>

@@ -77,6 +77,7 @@ export const actions = {
       })
       .catch(() => {
         commit('REMOVE_INFLIGHT', { routeURL: page_route, id: page_name })
+        throw 'Page not found'
       })
     commit('ADD_INFLIGHT', { routeURL: page_route, page_name, pending })
     return pending
