@@ -1,6 +1,6 @@
 {
   "name": "vue3-sphinx-xml",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "license": "Apache-2.0",
   "homepage": "https://github.com/hsorby/vue3-sphinx-xml#readme",
   "repository": {
@@ -19,7 +19,8 @@
   ],
   "module": "dist/vue3-sphinx-xml.es.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
   ],
   "scripts": {
     "build-package": "vite build"
