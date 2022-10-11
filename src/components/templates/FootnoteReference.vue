@@ -33,10 +33,4 @@ const { onReferenceCreated } = useBaseReference(node.value, route, routeDescript
 
 onMounted(onReferenceCreated)
 
-// import { baseReference } from '../../mixins/BaseReference'
-
-// export default {
-//   name: 'FootnoteReference',
-//   mixins: [baseReference],
-// }
 </script>

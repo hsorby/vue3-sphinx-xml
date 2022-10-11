@@ -36,18 +36,4 @@ const { dataObject } = useMethods()
 const attrs = ref({})
 
 attrs.value = dataObject(node.value, ['footnote']).attrs // import { h } from 'vue'
-
-// import { sphinxChildren } from '../../mixins/SphinxChildren'
-
-// export default {
-//   name: 'Footnote',
-//   mixins: [sphinxChildren],
-//   render() {
-//     return h(
-//       'div', // tag name
-//       this.dataObject(['footnote']),
-//       this.children.map(child => h(child)), // array of children
-//     )
-//   },
-// }
 </script>

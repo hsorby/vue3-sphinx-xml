@@ -43,14 +43,20 @@ const componentElement = ref(null)
 const transferAttributes = new Set(['div', 'button'])
 const tag = nodeNameTagNameMap.get(node.value.nodeName)
 
-// if (transferAttributes.has(node.value.nodeName)) {
 const tmpDataObject = dataObject(node.value, node.value.getAttribute('classes'))
-const classList = tmpDataObject.class ? tmpDataObject.class.join(' ') : undefined
+const classList = tmpDataObject.class
+  ? tmpDataObject.class.join(' ')
+  : undefined
 attrs.value = {
   ...tmpDataObject.attrs,
   class: classList,
 }
-// }
+
+// An empty prefix attribute causes problems for <ol> elements.
+if (attrs.value.prefix === '') {
+  delete attrs.value.prefix
+}
+
 if (node.value.nodeName === 'button') {
   isButton.value = true
 }

@@ -12,11 +12,12 @@
 </template>
 
 <script setup>
-console.log('***** IN USE *****')
 import { toRefs, ref } from 'vue'
 
 import { useMethods } from '../../composables/methods'
 import { useChildren } from '../../composables/computed'
+
+console.log('***** IN USE *****')
 
 const props = defineProps({
   node: {
@@ -36,20 +37,5 @@ const { children } = useChildren(node)
 const { dataObject } = useMethods()
 const attrs = ref({})
 
-attrs.value = dataObject(node.value, ['line_single']).attrs // import { h } from 'vue'
-// import { h } from 'vue'
-
-// import { sphinxChildren } from '../../mixins/SphinxChildren'
-
-// export default {
-//   name: 'LineSingle',
-//   mixins: [sphinxChildren],
-//   render() {
-//     return h(
-//       'div', // tag name
-//       this.dataObject(['line_single']),
-//       this.children.map(child => h(child)), // array of children
-//     )
-//   },
-// }
+attrs.value = dataObject(node.value, ['line_single']).attrs
 </script>

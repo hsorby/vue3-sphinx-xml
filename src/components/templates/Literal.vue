@@ -41,6 +41,9 @@ const { children } = useChildren(node)
 const v = dataObject(node.value)
 const isEmpty = (d) => {
   for (const i in d) {
+    if (d[i].language === '') {
+      continue
+    }
     return false
   }
 
@@ -49,5 +52,6 @@ const isEmpty = (d) => {
 
 if (!isEmpty(v)) {
   console.log('Something needs to be done with this:', v)
+  console.log(node.value.innerHTML)
 }
 </script>

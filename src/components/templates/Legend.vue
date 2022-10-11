@@ -12,11 +12,11 @@
 </template>
 
 <script setup>
-console.log("***** IN USE *****")
 import { toRefs } from 'vue'
 
 import { useChildren, useClasses } from '../../composables/computed'
 
+console.log('***** IN USE *****')
 const props = defineProps({
   node: {
     type: undefined,
@@ -34,16 +34,4 @@ const { node } = toRefs(props)
 
 const { children } = useChildren(node)
 const { classes } = useClasses(node)
-// import { baseDiv } from '../../mixins/BaseDiv'
-// import { sphinxChildren } from '../../mixins/SphinxChildren'
-
-// export default {
-//   name: 'Legend',
-//   mixins: [baseDiv, sphinxChildren],
-//   computed: {
-//     classes() {
-//       return ['legend']
-//     },
-//   },
-// }
 </script>

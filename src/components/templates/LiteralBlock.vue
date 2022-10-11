@@ -35,26 +35,4 @@ const sourceLanguage = computed(() => {
 const sourceCode = computed(() => {
   return decodeHTML(node.value.innerHTML)
 })
-// export default {
-//   name: 'LiteralBlock',
-//   props: {
-//     element: {
-//       type: undefined,
-//     },
-//   },
-//   computed: {
-//     sourceLanguage() {
-//       let language = this.element.getAttribute('language')
-//       if (language === 'console' || language === 'default') {
-//         language = 'bash'
-//       } else if (language === 'text') {
-//         language = 'plaintext'
-//       }
-//       return language
-//     },
-//     sourceCode() {
-//       return decodeHTML(this.element.innerHTML)
-//     },
-//   },
-// }
 </script>
