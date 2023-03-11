@@ -5,7 +5,7 @@
 <script setup>
 import { computed, toRefs, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useSphinxStore } from '@/stores/sphinx'
 
 import { useMethods } from '../../composables/methods'
 import { useChildren } from '../../composables/computed'
@@ -28,7 +28,7 @@ const { node } = toRefs(props)
 const { children } = useChildren(node)
 const { dataObject } = useMethods()
 const route = useRoute()
-const store = useStore()
+const sphinxStore = useSphinxStore()
 const attrs = ref({})
 
 const uri = computed(() => {
@@ -41,9 +41,7 @@ const uri = computed(() => {
     const lastIndex = imageURI.lastIndexOf('/')
     const imageName = imageURI.slice(lastIndex)
     // imageURI = `${this.$store.sphinx.getImagesURL(routeURL)}${imageName}`
-    imageURI = [store.getters['sphinx/getImagesURL'](routeURL), imageName].join(
-      '/',
-    )
+    imageURI = [sphinxStore.getImagesURL(routeURL), imageName].join('/')
   }
   return imageURI
 })
@@ -52,6 +50,6 @@ attrs.value = dataObject(node.value).attrs
 if (attrs.value) {
   attrs.value.src = uri
 } else {
-  attrs.value = {src: uri}
+  attrs.value = { src: uri }
 }
 </script>

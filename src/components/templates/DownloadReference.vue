@@ -1,11 +1,13 @@
 <template>
-  <a :href="href" :download="saveFilename" :class="classes" >{{ saveFilename }}</a>
+  <a :href="href" :download="saveFilename" :class="classes">{{
+    saveFilename
+  }}</a>
 </template>
 
 <script setup>
 import { computed, toRefs, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useSphinxStore } from '@/stores/sphinx'
 
 import { determineRouteUrl } from '../../js/utilities'
 
@@ -21,7 +23,7 @@ const props = defineProps({
 
 const { node } = toRefs(props)
 const route = useRoute()
-const store = useStore()
+const sphinxStore = useSphinxStore()
 
 const href = computed(() => {
   let downloadHref = node.value.getAttribute('filename')
@@ -31,10 +33,9 @@ const href = computed(() => {
     !downloadHref.startsWith('http')
   ) {
     const routeURL = determineRouteUrl(route)
-    downloadHref = [
-      store.getters['sphinx/getDownloadURL'](routeURL),
-      downloadHref,
-    ].join('/')
+    downloadHref = [sphinxStore.getDownloadURL(routeURL), downloadHref].join(
+      '/',
+    )
   }
   return downloadHref
 })

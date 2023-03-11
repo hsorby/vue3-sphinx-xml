@@ -1,6 +1,6 @@
 {
   "name": "vue3-sphinx-xml",
-  "version": "0.2.1-rc.2",
+  "version": "0.3.0",
   "license": "Apache-2.0",
   "homepage": "https://github.com/hsorby/vue3-sphinx-xml#readme",
   "repository": {
@@ -32,9 +32,9 @@
     "core-js": "^3.6.5",
     "katex": "^0.16.2",
     "path-to-regexp": "^6.2.1",
+    "pinia": "^2.0.33",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.15",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.15"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",

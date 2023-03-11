@@ -5,7 +5,7 @@
 <script setup>
 import { defineProps, ref, toRefs, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { useSphinxStore } from '@/stores/sphinx'
 
 import { determineRouteUrl, constructPageNameFromRoute } from '../js/utilities'
 
@@ -49,7 +49,7 @@ const {
 
 const router = useRouter()
 const route = useRoute()
-const store = useStore()
+const sphinxStore = useSphinxStore()
 
 let element = ref(null)
 let scrollToTarget = ref(undefined)
@@ -128,8 +128,8 @@ function fetchPageData(currentPath, routeURL, pageName) {
       ? `${baseURL.value}/_downloads`
       : downloadBaseURL.value
 
-  store
-    .dispatch('sphinx/fetchPage', {
+  sphinxStore
+    .fetchPage({
       page_name: pageName,
       page_route: routeURL,
       page_url: baseURL.value,

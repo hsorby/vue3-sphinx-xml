@@ -4,7 +4,7 @@ import 'katex/dist/katex.min.css'
 import { installVue3Highlightjs } from '@hsorby/vue3-highlightjs'
 
 import SphinxPage from './components/SphinxPage.vue'
-import * as SphinxStore from './store/modules/sphinx'
+import * as SphinxStore from './stores/sphinx'
 
 function installVue3SphinxXml(app, options = {}) {
   if (!options.store) {
