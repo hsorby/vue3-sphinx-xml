@@ -44,8 +44,6 @@ npm install --save vue-highlightjs
 and edit your `main.js` application file to have the following:
 
 ```javascript
-import store from './store'
-
 import { installVue3SphinxXml } from 'vue3-sphinx-xml'
 import 'vue3-sphinx-xml/dist/style.css'
 
@@ -55,7 +53,7 @@ import 'highlight.js/styles/xcode.css'
 
 createApp(App)
   .use(store)
-  .use(installVue3SphinxXml, { store })
+  .use(installVue3SphinxXml)
   .use(VueHighlightJS)
   .mount('#app')
 ```
@@ -81,6 +79,8 @@ import { SphinxPage } from 'vue3-sphinx-xml'
 </script>
 
 ```
+
+In this example the XML source files would be in the directory **public/sphinx-xml-files**.
 
 #### SphinxPage API
 
