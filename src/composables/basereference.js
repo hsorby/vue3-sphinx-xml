@@ -34,7 +34,7 @@ export const useBaseReference = (element, route, routeDescription) => {
           sphinxStore.fetchPage({
             page_name: pageName,
             page_route: baseRefUri,
-            page_url: store.getters['sphinx/getBaseUrl'](baseRefUri),
+            page_url: sphinxStore.getBaseUrl(baseRefUri),
           })
         }
       }

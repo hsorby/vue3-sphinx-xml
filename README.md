@@ -15,16 +15,21 @@ npm install --save vue3-sphinx-xml
 
 ### Module import
 
-vue3-sphinx-xml makes use of the vuex store to track data. You must use a vuex store for the component to work.
-**⚠️ You need to install the module with the application like so:**
+vue3-sphinx-xml makes use of the pinia to track data.
+It uses a local pinia instance for its own purposes.
+You can pass options to Katex when you install vue3-sphinx-xml, using the **katex** key in the options parameter.
 
 ```javascript
-import store from './store'
-
 import { installVue3SphinxXml } from 'vue3-sphinx-xml'
 import 'vue3-sphinx-xml/dist/style.css'
 
-createApp(App).use(store).use(installVue3SphinxXml, { store }).mount('#app')
+createApp(App)
+  .use(installVue3SphinxXml, {
+    katex: {
+      /* Katex options go here. */
+    },
+  })
+  .mount('#app')
 ```
 
 Add the above to your `main.js` application file before the line creating a `createApp(App)` instance (this assumes that a standard layout is followed when creating your application).
@@ -66,7 +71,7 @@ Example view `Documentation.vue`:
 ```javascript
 <template>
   <div class="documentation">
-    <sphinx-page :baseURL="/sphinx-xml-files"
+    <sphinx-page baseURL="/sphinx-xml-files"
     />
   </div>
 </template>
@@ -91,7 +96,8 @@ import { SphinxPage } from 'vue3-sphinx-xml'
 
 ### Module routing
 
-vue3-sphinx-xml requires that you use vue-router. To add a vue3-sphinx-xml route under `documentation` add the following to `routes` object for vue-router:
+vue3-sphinx-xml requires that you use vue-router.
+To add a vue3-sphinx-xml route under `documentation` add the following to `routes` object for vue-router:
 
 ```javascript
   {
@@ -121,7 +127,11 @@ import VueKatex from 'vue-katex'
 
 import 'katex/dist/katex.min.css'
 
-Vue.use(SphinxXml, { store })
+Vue.use(SphinxXml, {
+  katex: {
+    /* Katex options. */
+  },
+})
 Vue.use(VueKatex)
 ```
 
