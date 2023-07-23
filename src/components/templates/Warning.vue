@@ -1,6 +1,5 @@
 <template>
   <div :id="id" class="admonition warning">
-    <span v-for="(s, index) in extraIds" :key="'id_span_' + index" :id="s" />
     <component
       v-for="(c, index) in children"
       :key="'warning_component_' + index"

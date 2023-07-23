@@ -3,7 +3,7 @@
     <div>
       <component
         v-for="(c, index) in children"
-        :key="'section_component_' + index"
+        :key="'blockquote_component_' + index"
         :is="c.component"
         :node="c.node"
         :componentName="c.name"

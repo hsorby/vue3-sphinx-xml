@@ -164,6 +164,21 @@ export const renderMathBlock = element => {
   }
 }
 
+export const renderAdmonition = element => {
+  return {
+    components: {
+      Admonition: () => import('../components/templates/Admonition.vue'),
+    },
+    render() {
+      return h('Admonition', {
+        props: {
+          element,
+        },
+      })
+    },
+  }
+}
+
 export const renderProblematic = element => {
   return {
     components: {

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue'
+import { computed, toRefs, ref } from 'vue'
 
 import { useMethods } from '../../composables/methods'
 import { useChildren, useClasses } from '../../composables/computed'
@@ -27,12 +27,12 @@ const props = defineProps({
   },
   properties: {
     type: Object,
-  }
+  },
 })
 
 const { node } = toRefs(props)
 
-const { extractId } = useMethods()
+const { dataObject, extractId } = useMethods()
 const { classes } = useClasses(node)
 
 const { id } = extractId(node.value)
@@ -44,9 +44,10 @@ const combinedClasses = computed(() => {
 })
 
 const result = dataObject(node.value, combinedClasses.value)
-attrs.value = {
-    ...result.attrs,
-    class: result.class.join(' '),
-  }
 
+const attrs = ref({})
+attrs.value = {
+  ...result.attrs,
+  class: result.class.join(' '),
+}
 </script>
