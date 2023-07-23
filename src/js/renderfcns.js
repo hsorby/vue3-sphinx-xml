@@ -17,6 +17,22 @@ export const renderDirectElementMap = (element, tagName) => {
   }
 }
 
+export const renderWarning = (element, level) => {
+  return {
+    components: {
+      Admonition: () => import('../components/templates/Admonition.vue'),
+    },
+    render() {
+      return h('Admonition', {
+        props: {
+          element,
+          level
+        },
+      })
+    },
+  }
+}
+
 export const renderSection = (element, level, extraIds) => {
   return {
     components: {

@@ -1,5 +1,6 @@
 <template>
   <div :id="id" class="admonition warning">
+    <component :is="tagName">Warning</component>
     <component
       v-for="(c, index) in children"
       :key="'warning_component_' + index"
@@ -27,13 +28,14 @@ const props = defineProps({
   },
   properties: {
     type: Object,
-  }
+  },
 })
 
-const { node } = toRefs(props)
+const { node, properties } = toRefs(props)
 
 const { extractId } = useMethods()
 const { id } = extractId(node.value)
 
 const { children } = useChildren(node)
+const tagName = 'h' + properties.value.depth
 </script>

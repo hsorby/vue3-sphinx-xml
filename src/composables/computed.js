@@ -13,6 +13,18 @@ function defineChildComponent(name, node) {
     properties = {
       text: node.nodeValue,
     }
+  } else if (node.nodeName === 'warning') {
+    let parentNode = node.parentNode
+    let depth = 0
+    while (parentNode) {
+      if (parentNode.nodeName === 'section') {
+        depth += 1
+      }
+      parentNode = parentNode.parentNode
+    }
+    properties = {
+      depth
+    }
   } else if (node.nodeName === 'title') {
     let parentNode = node.parentNode
     let depth = 0
