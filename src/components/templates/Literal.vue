@@ -1,5 +1,5 @@
 <template>
-  <code>
+  <code :class="classes">
     <span class="pre">
       <component
         v-for="(c, index) in children"
@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue'
+import { toRefs, ref } from 'vue'
 
 import { useMethods } from '../../composables/methods'
 import { useChildren } from '../../composables/computed'
@@ -38,6 +38,8 @@ const { dataObject } = useMethods()
 
 const { children } = useChildren(node)
 
+const classes = ref(['literal', 'notranslate'])
+
 const v = dataObject(node.value)
 const isEmpty = (d) => {
   for (const i in d) {
@@ -51,7 +53,8 @@ const isEmpty = (d) => {
 }
 
 if (!isEmpty(v)) {
-  console.log('Something needs to be done with this:', v)
-  console.log(node.value.innerHTML)
+  if (v.attrs && v.attrs.role) {
+    classes.value.push(v.attrs.role)
+  }
 }
 </script>
