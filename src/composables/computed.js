@@ -109,7 +109,7 @@ function addTGroup(components, node, columns) {
   }
 
   if (colspecs.length !== columns) {
-    console.log('Something is not right.')
+    console.log('***** Something is not right. *****')
   }
   components.push(defineColgroupComponent(node, colspecs))
 
