@@ -1,6 +1,7 @@
 export const nodeNameTagNameMap = new Map([
   ['bullet_list', 'ul'],
   ['button', 'button'],
+  ['citation', 'cite'],
   ['definition', 'dd'],
   ['definition_list', 'dl'],
   ['definition_list_item', 'dt'],
