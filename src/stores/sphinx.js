@@ -11,6 +11,9 @@ export const useSphinxStore = defineStore('sphinx', {
     imagesURLs: new Map(),
   }),
   getters: {
+    printPages: (state) => () => {
+      console.log(state.pages)
+    },
     getPageById: (state) => (routeURL, id) => {
       return state.pages.get(routeURL).find((page) => page.id === id)
     },
