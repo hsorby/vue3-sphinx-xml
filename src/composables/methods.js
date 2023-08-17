@@ -93,11 +93,13 @@ export const useMethods = () => {
     }
     return {}
   }
+
   const determinePageLocation = (element) => {
     const elementRefUri = element.getAttribute('refuri')
     const hash = elementRefUri.split('#')[1]
     return hash ? '#' + hash : ''
   }
+
   const determinePageName = (element, route) => {
     const baseRefUri = determineRouteUrl(route)
     const elementRefUri = element.getAttribute('refuri')
@@ -123,13 +125,16 @@ export const useMethods = () => {
     }
     return [...splitRoutePath, ...splitRefUri, fileBaseName].join('/')
   }
+
   const isInternalReference = (element) => {
     const internal = element.getAttribute('internal') === 'True'
     return internal || isReferenceToCurrentPage(element)
   }
+
   const isReferenceToCurrentPage = (element) => {
     return element.hasAttribute('refid')
   }
+
   return {
     dataObject,
     determinePageLocation,
