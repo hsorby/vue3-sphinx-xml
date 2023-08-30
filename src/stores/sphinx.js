@@ -9,6 +9,7 @@ export const useSphinxStore = defineStore('sphinx', {
     inflight: new Map(),
     downloadURLs: new Map(),
     imagesURLs: new Map(),
+    offsetReferenceURLs: new Map(),
   }),
   getters: {
     printPages: (state) => () => {
@@ -16,6 +17,9 @@ export const useSphinxStore = defineStore('sphinx', {
     },
     getPageById: (state) => (routeURL, id) => {
       return state.pages.get(routeURL).find((page) => page.id === id)
+    },
+    hasPageById: (state) => (routeURL, id) => {
+      return !!state.getPageById(routeURL, id)
     },
     getInflight: (state) => (routeURL, id) => {
       return state.inflight.get(routeURL).get(id)
@@ -31,6 +35,9 @@ export const useSphinxStore = defineStore('sphinx', {
     },
     getImagesURL: (state) => (routeURL) => {
       return state.imagesURLs.get(routeURL)
+    },
+    isOffsetReferenceURL: (state) => (routeURL) => {
+      return state.offsetReferenceURLs.get(routeURL)
     },
   },
   actions: {
@@ -53,13 +60,24 @@ export const useSphinxStore = defineStore('sphinx', {
     removeInflight({ routeURL, id }) {
       this.inflight.get(routeURL).delete(id)
     },
-    registerRouteUrl({ baseURL, routeURL, downloadsURL, imagesURL }) {
+    registerRouteUrl({
+      baseURL,
+      routeURL,
+      downloadsURL,
+      imagesURL,
+      offsetRouteURL,
+    }) {
       const registeredURL = this.pages.get(routeURL)
+      const activeRouteURL = offsetRouteURL ? offsetRouteURL : routeURL
+      this.downloadURLs.set(activeRouteURL, downloadsURL)
+      this.imagesURLs.set(activeRouteURL, imagesURL)
+      this.offsetReferenceURLs.set(
+        activeRouteURL,
+        offsetRouteURL ? true : false,
+      )
       if (!registeredURL) {
         this.pages.set(routeURL, [])
         this.urlMap.set(routeURL, baseURL)
-        this.downloadURLs.set(routeURL, downloadsURL)
-        this.imagesURLs.set(routeURL, imagesURL)
         this.inflight.set(routeURL, new Map())
       }
     },
@@ -67,24 +85,22 @@ export const useSphinxStore = defineStore('sphinx', {
       const page_name = payload.page_name
       const page_route = payload.page_route
       const base_url = payload.page_url
-      this.registerRouteUrl({
-        baseURL: base_url,
-        routeURL: page_route,
-        downloadsURL: payload.page_downloads,
-        imagesURL: payload.page_images,
-      })
+
       const existingPage = this.getPageById(page_route, page_name)
       if (existingPage) {
         return Promise.resolve(existingPage)
       }
+
       if (this.isInflight(page_route, page_name)) {
         return this.getInflight(page_route, page_name)
       }
+
       const pending = SphinxService.getPage(base_url, page_name)
         .then((response) => {
           let parser = new DOMParser()
           let xmlDoc = parser.parseFromString(response.data, 'text/xml')
           const documentElement = xmlDoc.querySelector('document')
+          documentElement.id = page_name
           this.appendPage({ routeURL: page_route, page: documentElement })
           this.removeInflight({ routeURL: page_route, id: page_name })
           return documentElement

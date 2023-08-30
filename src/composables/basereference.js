@@ -8,6 +8,7 @@ const {
   determinePageName,
   isInternalReference,
   isReferenceToCurrentPage,
+  parentLevelsInRefURI,
 } = useMethods()
 
 export const useBaseReference = (element, route, routeDescription) => {
@@ -16,7 +17,7 @@ export const useBaseReference = (element, route, routeDescription) => {
   const onReferenceCreated = () => {
     if (isInternalReference(element)) {
       let pageName = constructPageNameFromRoute(route)
-      const baseRefUri = determineRouteUrl(route)
+      let baseRefUri = determineRouteUrl(route)
       const pageReference = element.getAttribute('refid')
       if (pageReference && !pageReference.startsWith('#')) {
         routeDescription.value.hash = '#' + pageReference
@@ -25,8 +26,20 @@ export const useBaseReference = (element, route, routeDescription) => {
       }
       if (!isReferenceToCurrentPage(element)) {
         pageName = determinePageName(element, route)
+        let parentLevels = parentLevelsInRefURI(element)
+        if (sphinxStore.isOffsetReferenceURL(baseRefUri) && parentLevels) {
+          let parts = baseRefUri.split('/')
+          while(parentLevels--) {
+            parts.pop()
+          }
+          if (parts.length === 1) {
+            baseRefUri = '/'
+          } else {
+            baseRefUri = parts.join('/')
+          }
+        }
         routeDescription.value.hash = determinePageLocation(element)
-        const existingPageWrapper = sphinxStore.getPageById(
+        const existingPageWrapper = sphinxStore.hasPageById(
           baseRefUri,
           pageName,
         )
@@ -39,7 +52,7 @@ export const useBaseReference = (element, route, routeDescription) => {
         }
       }
 
-      routeDescription.value.path = baseRefUri + '/' + pageName
+      routeDescription.value.path = baseRefUri === '/' ? baseRefUri + pageName : baseRefUri + '/' + pageName
     }
   }
   return {

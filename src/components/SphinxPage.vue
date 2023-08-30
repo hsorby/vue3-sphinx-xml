@@ -16,6 +16,10 @@ const props = defineProps({
     type: String,
     default: '/',
   },
+  referenceBaseURL: {
+    type: String,
+    default: undefined,
+  },
   downloadBaseURL: {
     type: String,
     default: '',
@@ -40,6 +44,7 @@ const props = defineProps({
 
 const {
   baseURL,
+  referenceBaseURL,
   downloadBaseURL,
   imagesBaseURL,
   indexFileName,
@@ -128,17 +133,44 @@ function fetchPageData(currentPath, routeURL, pageName) {
       ? `${baseURL.value}/_downloads`
       : downloadBaseURL.value
 
+  let tmpBaseURL = baseURL.value
+  let tmpRouteURL = routeURL
+  let tmpPageName = pageName
+  if (referenceBaseURL.value) {
+    let baseURLParts = tmpBaseURL.split(referenceBaseURL.value)
+    const value = baseURLParts.pop()
+    if (value === indexFileName.value) {
+      baseURLParts.pop()
+    }
+    if (referenceBaseURL.value !== '/') {
+      baseURLParts.push(referenceBaseURL.value)
+    }
+    tmpBaseURL = baseURLParts.join('/').replace('//', '/')
+    let routeURLParts = tmpRouteURL.split(referenceBaseURL.value)
+    const routeEnd = routeURLParts.pop()
+    routeURLParts.push(referenceBaseURL.value)
+    tmpRouteURL = routeURLParts.join('/').replace('//', '/')
+    const pagePrefix = routeEnd[0] === '/' ? routeEnd.slice(1) : routeEnd
+    tmpPageName = pagePrefix + '/' + tmpPageName
+  }
+
+  sphinxStore.registerRouteUrl({
+    baseURL: tmpBaseURL,
+    routeURL: tmpRouteURL,
+    downloadsURL: resolvedDownloadBaseURL,
+    imagesURL: resolvedImagesBaseURL,
+    offsetRouteURL: referenceBaseURL.value === undefined ? false : routeURL,
+  })
+
   sphinxStore
     .fetchPage({
-      page_name: pageName,
-      page_route: routeURL,
-      page_url: baseURL.value,
-      page_downloads: resolvedDownloadBaseURL,
-      page_images: resolvedImagesBaseURL,
+      page_name: tmpPageName,
+      page_route: tmpRouteURL,
+      page_url: tmpBaseURL,
     })
     .then((response) => {
       element.value = response
-      id.value = 'page_' + pageName.replace('/', '_')
+      id.value = 'page_' + tmpPageName.replace('/', '_')
     })
     .catch(() => {
       router.push({

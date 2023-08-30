@@ -135,6 +135,17 @@ export const useMethods = () => {
     return element.hasAttribute('refid')
   }
 
+  const parentLevelsInRefURI = (element) => {
+    let splitRefUri = element.getAttribute('refuri').split('/')
+    let count = 0
+    while (splitRefUri[0] === '..') {
+      splitRefUri.shift()
+      count++
+    }
+
+    return count
+  }
+
   return {
     dataObject,
     determinePageLocation,
@@ -142,6 +153,7 @@ export const useMethods = () => {
     extractId,
     isInternalReference,
     isReferenceToCurrentPage,
+    parentLevelsInRefURI,
     separateIds,
     toggleActiveClass,
   }

@@ -1,5 +1,5 @@
 <template></template>
 
 <script setup>
-console.log('**** Ignoring this element.')
+console.log('**** Intentionally ignoring this element.')
 </script>

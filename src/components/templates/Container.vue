@@ -74,7 +74,7 @@ onMounted(() => {
   }
 
   if (classes.value.includes('tab2name')) {
-    console.log('***** tab2name found ??? *****')
+    console.log('***** IN USE tab2name found ??? *****')
   }
 })
 </script>

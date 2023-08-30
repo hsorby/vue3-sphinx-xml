@@ -32,3 +32,10 @@ export const constructPageNameFromRoute = (route) => {
   }
   return pageName
 }
+
+export const applyReferenceBaseChanges = (referenceBase, applicant) => {
+  let parts = applicant.split(referenceBase)
+  parts.pop()
+  parts.push(referenceBase)
+  return baseURLParts.join('/').replace('//', '/')
+}
