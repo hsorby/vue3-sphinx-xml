@@ -13,8 +13,7 @@
 </template>
 
 <script setup>
-console.log("****** IN USE ******")
-import { toRefs } from 'vue'
+import { toRefs, ref } from 'vue'
 
 import { useMethods } from '../../composables/methods'
 import { useChildren } from '../../composables/computed'
@@ -29,7 +28,7 @@ const props = defineProps({
   },
   properties: {
     type: Object,
-  }
+  },
 })
 
 const { node } = toRefs(props)

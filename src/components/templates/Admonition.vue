@@ -31,6 +31,7 @@ const props = defineProps({
 })
 
 const { node } = toRefs(props)
+const attrs = ref({})
 
 const { dataObject, extractId } = useMethods()
 const { classes } = useClasses(node)
@@ -45,7 +46,6 @@ const combinedClasses = computed(() => {
 
 const result = dataObject(node.value, combinedClasses.value)
 
-const attrs = ref({})
 attrs.value = {
   ...result.attrs,
   class: result.class.join(' '),
