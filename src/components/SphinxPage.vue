@@ -173,12 +173,19 @@ function fetchPageData(currentPath, routeURL, pageName) {
       id.value = 'page_' + tmpPageName.replace('/', '_')
     })
     .catch(() => {
-      router.push({
-        name: pageNotFoundName.value,
-        query: {
-          path: currentPath,
-        },
-      })
+      if (pageName.endsWith('index')) {
+        router.push({
+          name: pageNotFoundName.value,
+          query: {
+            path: currentPath,
+          },
+        })
+      } else {
+        // Didn't find a path with the original name, maybe it's an index page?
+        const newPath =
+          currentPath + (currentPath.endsWith('/') ? '' : '/') + indexFileName.value
+        router.push(newPath)
+      }
     })
 }
 </script>
