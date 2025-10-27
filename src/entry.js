@@ -1,6 +1,6 @@
 import { createPinia } from 'pinia'
 
-import Vue3Katex from '@hsorby/vue3-katex'
+import Vue3Katex from 'vue3-katex'
 import 'katex/dist/katex.min.css'
 
 import { installVue3Highlightjs } from '@hsorby/vue3-highlightjs'

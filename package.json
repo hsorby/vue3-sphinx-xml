@@ -23,25 +23,27 @@
     "README.md"
   ],
   "scripts": {
-    "build-package": "vite build"
+    "build-package": "vite build",
+    "dev": "vite"
   },
   "dependencies": {
     "@hsorby/vue3-highlightjs": "^1.0.7",
-    "@hsorby/vue3-katex": "^0.6.0-rc.7",
-    "axios": "^1.7.7",
-    "core-js": "^3.38.1",
-    "katex": "^0.16.11",
-    "path-to-regexp": "^8.2.0",
-    "pinia": "^2.2.5",
-    "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "axios": "^1.12.2",
+    "vue3-katex": "^0.8.0"
+  },
+  "peerDependencies": {
+    "katex": "^0.16.0",
+    "pinia": "^2.0.0 || ^3.0.0",
+    "vue": "^3.2.0",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-buble": "^1.0.3",
-    "@vitejs/plugin-vue": "^5.1.4",
-    "rollup": "^4.24.3",
-    "rollup-plugin-scss": "^4.0.0",
-    "sass": "^1.80.5",
-    "vite": "^5.4.10"
+    "@vitejs/plugin-vue": "^6.0.1",
+    "katex": "^0.16.25",
+    "pinia": "^3.0.3",
+    "sass": "^1.93.2",
+    "vite": "^7.1.12",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
   }
 }

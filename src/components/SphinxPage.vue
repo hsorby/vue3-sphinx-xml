@@ -3,13 +3,15 @@
 </template>
 
 <script setup>
-import { defineProps, ref, toRefs, watch } from 'vue'
+import { defineAsyncComponent, defineProps, ref, toRefs, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSphinxStore } from '@/stores/sphinx'
 
 import { determineRouteUrl, constructPageNameFromRoute } from '../js/utilities'
 
-import Document from './templates/Document.vue'
+const Document = defineAsyncComponent(() =>
+  import('./templates/Document.vue')
+)
 
 const props = defineProps({
   baseURL: {
@@ -56,6 +58,10 @@ const router = useRouter()
 const route = useRoute()
 const sphinxStore = useSphinxStore()
 
+console.log('*********** SphinxPage.vue loaded ***********')
+console.log(`Base URL: ${baseURL.value}`)
+console.log(route)
+console.log(router)
 let element = ref(null)
 let scrollToTarget = ref(undefined)
 let id = ref('')
