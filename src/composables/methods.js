@@ -127,7 +127,8 @@ export const useMethods = () => {
   }
 
   const isInternalReference = (element) => {
-    const internal = element.getAttribute('internal') === 'True'
+    const value = element.getAttribute('internal')
+    const internal = value && (value.toLowerCase() === 'true' || value === '1')
     return internal || isReferenceToCurrentPage(element)
   }
 
